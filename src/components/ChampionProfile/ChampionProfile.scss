@@ -1,0 +1,40 @@
+//https://coolors.co/00e8fc-21295c-f96e46
+.championProfile{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+
+    max-width: 30vw;
+    margin: .2rem 2rem;
+    padding: .2rem .4rem;
+    background-color: #F96E46;
+    border-radius: .5rem;
+    box-shadow: .1rem .2rem .2rem #222;
+    color: #111;
+
+    cursor: pointer;
+
+    @media (max-width: 1400px) {
+        max-width: 40vw;
+    }
+
+    @media (max-width: 900px) {
+        max-width: 80vw;
+    }
+
+    &__icon{
+        border-radius: .5rem;
+    }
+    &__summary{
+        margin: auto;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        &-title{
+            font-size: .8rem;
+        }
+    }
+}

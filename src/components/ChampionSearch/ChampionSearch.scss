@@ -1,0 +1,31 @@
+.championSearch{
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 2rem auto;
+
+    &__input{
+
+        padding: 1rem;
+        background-color: transparent;
+        border: 1px solid #00E8FC;
+        border-radius: .5rem;
+        color: #00E8FC;
+        font-size: 2rem;
+        text-align: center;
+
+        cursor: text;
+
+        &:focus{
+            outline: none;
+        }
+    }
+    ::placeholder{
+        color: #00E8FC;
+    }
+}
+
+input:focus::placeholder{
+    color: transparent;
+}
