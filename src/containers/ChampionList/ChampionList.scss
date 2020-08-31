@@ -4,7 +4,7 @@
     grid-template-columns: repeat(3, auto);
     justify-content: center;
 
-    @media (max-width: 1400px) {
+    @media (max-width: 1450px) {
         grid-template-columns: repeat(2, auto);
     }
     @media (max-width: 900px) {

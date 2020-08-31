@@ -3,22 +3,39 @@ import ChampionProfile from '../../components/ChampionProfile/ChampionProfile';
 import ChampionSearch from '../../components/ChampionSearch/ChampionSearch';
 import LDCTitle from '../../components/LDCTitle/LDCTitle';
 import './ChampionList.scss';
+import ChampionDetails from '../ChampionDetails/ChampionDetails';
 
 class ChampionList extends React.Component{
     
     constructor(props){
         super(props);
         this.state = {
+            ddragon_champions: 'http://ddragon.leagueoflegends.com/cdn/10.16.1/data/en_US/champion.json',
+            ddragon_single: 'http://ddragon.leagueoflegends.com/cdn/10.16.1/data/en_US/champion/',
             error: null,
             isLoaded: false,
+            curUrl: '',
+            curState: 'list',
+            curChampion: [],
             Champions: [],
             championList: [],
             searchBox: ''
         };
-        this.handleChange = this.handleChange.bind(this);
+        this.handleSearch = this.handleSearch.bind(this);
+        this.handleInfo = this.handleInfo.bind(this);
+        this.handleClose = this.handleClose.bind(this);
     }
 
-    handleChange(event) {
+    handleInfo(champion){
+        const url = this.state.ddragon_single+champion+'.json';
+        this.setState({
+            curUrl: url,
+            curChampion: champion,
+            curState: 'details'
+        });
+    }
+
+    handleSearch(event) {
         this.setState({searchBox: event.target.value});
         var championList = this.state.Champions.filter(function(champion){
             return champion.name.toUpperCase().indexOf(event.target.value.toUpperCase()) > -1;
@@ -26,8 +43,15 @@ class ChampionList extends React.Component{
         this.setState({championList: championList});
     }
 
+    handleClose(){
+        this.setState({
+            curChampion: [],
+            curState: 'list'
+        });
+    }
+
     componentDidMount(){
-        fetch('http://ddragon.leagueoflegends.com/cdn/10.16.1/data/en_US/champion.json')
+        fetch(this.state.ddragon_champions)
             .then( resp => resp.json())
             .then((Champions)=> {
                 this.setState({
@@ -45,23 +69,46 @@ class ChampionList extends React.Component{
     }
     
     render(){
-        const { error, isLoaded } = this.state;
+        const { error, isLoaded, curUrl, curChampion } = this.state;
         if (error) {
             return <div>Error: {error.message}</div>;
         } else if (!isLoaded) {
             return <div>Loading...</div>;
         } else {
-            return (
-                <div className='main'>
-                    <LDCTitle />
-                    <ChampionSearch searchBox={this.state.searchBox} onChange={this.handleChange}/>
-                    <div className='championGrid'>
-                        {this.state.championList.map(item => (
-                            <ChampionProfile key={item.id} data={item} />
-                        ))}
-                    </div>
-                </div>
-            );
+            switch(this.state.curState){
+                case ('details'):
+                    return (
+                        <div className='main'>
+                            <LDCTitle />
+                            <ChampionDetails champion={curChampion} url={curUrl} onClose={this.handleClose}/>
+                        </div>
+                    );
+                case ('list'):
+                    return (
+                        <div className='main'>
+                            <LDCTitle />
+                            <ChampionSearch searchBox={this.state.searchBox} onChange={this.handleSearch}/>
+                            <div className='championGrid'>
+                                {this.state.championList.map(item => (
+                                    <ChampionProfile key={item.id} data={item} onInfo={this.handleInfo}/>
+                                ))}
+                            </div>
+                        </div>
+                    );
+                default:
+                    return (
+                        <div className='main'>
+                            <LDCTitle />
+                            <ChampionSearch searchBox={this.state.searchBox} onChange={this.handleSearch}/>
+                            <div className='championGrid'>
+                                {this.state.championList.map(item => (
+                                    <ChampionProfile key={item.id} data={item} />
+                                ))}
+                            </div>
+                        </div>
+                    );
+            }
+            
         }
     }
         

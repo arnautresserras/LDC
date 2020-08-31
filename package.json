@@ -1,5 +1,6 @@
 {
   "name": "ldc",
+  "homepage": "/demos/LDC",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
