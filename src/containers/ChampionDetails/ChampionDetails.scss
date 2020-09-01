@@ -10,6 +10,9 @@
     align-items: center;
     &__name{
         font-weight: 600;
+        @media (max-width: 900px) {
+            text-align: center;
+        }
     }
     &__close{
         grid-row: 3;

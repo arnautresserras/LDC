@@ -41,6 +41,9 @@
         align-items: center;
         &-title{
             font-size: .8rem;
+            @media (max-width: 900px) {
+                display: none;
+            }
         }
         h2{
             margin: .5rem auto;
@@ -67,6 +70,10 @@
                 padding: .1rem 1.5rem;
                 border-radius: .5rem;
                 cursor: pointer;
+                @media (max-width: 900px) {
+                    font-size: 1rem;
+                    padding: .1rem .5rem;
+                }
                 &:hover, &:focus, &:active{
                     transform: translateY( -2px ) scale( 1.05 );
                 }
