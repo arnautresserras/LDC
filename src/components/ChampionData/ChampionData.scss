@@ -1,0 +1,18 @@
+.championData{
+    margin: 1rem auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    min-height: 60vh;
+    flex-wrap: nowrap;
+    &__lore{
+        text-align: justify;
+        margin-top: .8rem;
+        margin-bottom: 1rem;
+    }
+    &__loading{
+        border-radius: .5rem;
+        max-width: 100%;
+        margin-right: 1rem;
+    }
+}

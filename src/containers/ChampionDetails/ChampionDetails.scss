@@ -2,8 +2,31 @@
     background-color: #F96E46;
     width: 80vw;
     margin: 0 auto;
+    padding: 1rem;
+    border-radius: .5rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    &__name{
+        font-weight: 600;
+    }
+    &__close{
+        grid-row: 3;
+        grid-column: 2;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 2px solid #00E8FC;
+        background-color: #00E8FC;
+        color: #111;
+        font-weight: bold;
+        font-size: 1.2rem;
+        padding: .1rem 1.5rem;
+        border-radius: .5rem;
+        cursor: pointer;
+        &:hover, &:focus, &:active{
+            transform: translateY( -2px ) scale( 1.05 );
+        }
+    }
 }
