@@ -1,18 +1,39 @@
 .championData{
-    margin: 1rem auto;
     display: flex;
     flex-direction: row;
     justify-content: center;
     min-height: 60vh;
     flex-wrap: nowrap;
+    &__skins{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        &-button{
+            margin: 0 1rem;
+            border-radius: .5rem;
+            background-color: #00E8FC;
+            border: none;
+            font-weight: bold;
+            padding: .2rem .5rem;
+        }
+    }
     &__lore{
         text-align: justify;
         margin-top: .8rem;
         margin-bottom: 1rem;
     }
     &__loading{
-        border-radius: .5rem;
-        max-width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        min-width: 20%;
         margin-right: 1rem;
+        &-img{
+            border-radius: .5rem;
+            width: 100%;
+            margin-bottom: 1rem;
+        }
     }
 }

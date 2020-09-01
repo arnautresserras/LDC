@@ -2,17 +2,57 @@ import React from 'react';
 import './ChampionData.scss';
 import ChampionTips from '../ChampionTips/ChampionTips';
 
-function ChampionData(props){
-    const alt = "Splash art for "+props.champion.name+", "+props.champion.title;
-    const icon = 'http://ddragon.leagueoflegends.com/cdn/img/champion/loading/'+props.champion.id+'_0.jpg';
-    return(
-        <div className='championData'>
-            <img className='championData__loading' src={icon} alt={alt}></img>
-            <div>
-                <ChampionTips lore={props.champion.lore} name={props.champion.name} allytips={props.champion.allytips} enemytips={props.champion.enemytips}/>
+class ChampionData extends React.Component{
+
+    constructor(props){
+        super(props);
+        this.state={
+            skinID: 0,
+            lastSkin: this.props.champion.skins.length - 1,
+            firstSkin: 0
+        };
+        this.nextSkin = this.nextSkin.bind(this);
+        this.previousSkin = this.previousSkin.bind(this);
+    }
+
+    nextSkin(){
+        const { skinID, lastSkin } = this.state;
+        if(skinID!==lastSkin){
+            const newSkinID = skinID + 1;
+            this.setState({skinID: newSkinID});
+        }else{
+            this.setState({skinID: 0});
+        };
+    }
+    previousSkin(){
+        const { skinID, lastSkin, firstSkin } = this.state;
+        if(skinID!==firstSkin){
+            const newSkinID = skinID - 1;
+            this.setState({skinID: newSkinID});
+        }else{
+            this.setState({skinID: lastSkin});
+        };
+    }
+
+    render(){
+        let skinName = this.props.champion.skins[this.state.skinID].name;
+        const alt = "Splash art for "+Object.values({skinName})+" is missing from the riot datadragon api.";
+        let icon = 'http://ddragon.leagueoflegends.com/cdn/img/champion/loading/'+this.props.champion.id+'_'+this.state.skinID+'.jpg';
+        return(
+            <div className='championData'>
+                <div className='championData__loading'>
+                    <img className='championData__loading-img' src={icon} alt={alt}></img>
+                    <div className='championData__skins'>
+                        <button className='championData__skins-button' onClick={this.previousSkin}>&#60;</button>
+                        <p>{skinName}</p>
+                        <button className='championData__skins-button' onClick={this.nextSkin}>&#62;</button>
+                    </div>
+                </div>
+                <div>
+                    <ChampionTips lore={this.props.champion.lore} name={this.props.champion.name} allytips={this.props.champion.allytips} enemytips={this.props.champion.enemytips}/>
+                </div>
             </div>
-        </div>
-    );
+    )};
 }
 
 export default ChampionData;
