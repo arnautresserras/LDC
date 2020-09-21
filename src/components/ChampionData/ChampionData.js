@@ -1,5 +1,7 @@
 import React from 'react';
 import './ChampionData.scss';
+import ReactImageFallback from "react-image-fallback";
+import fallback from '../../fallback.jpg';
 import ChampionTips from '../ChampionTips/ChampionTips';
 
 class ChampionData extends React.Component{
@@ -36,12 +38,12 @@ class ChampionData extends React.Component{
 
     render(){
         let skinName = this.props.champion.skins[this.state.skinID].name;
-        const alt = "Splash art for "+Object.values({skinName})+" is missing from the riot datadragon api.";
+        const alt = "Splash art for "+Object.values({skinName})+" skin.";
         let icon = 'http://ddragon.leagueoflegends.com/cdn/img/champion/loading/'+this.props.champion.id+'_'+this.state.skinID+'.jpg';
         return(
             <div className='championData'>
                 <div className='championData__loading'>
-                    <img className='championData__loading-img' src={icon} alt={alt}></img>
+                    <ReactImageFallback className='championData__loading-img' src={icon} alt={alt} fallbackImage={fallback} />
                     <div className='championData__skins'>
                         <button className='championData__skins-button' onClick={this.previousSkin}>&#60;</button>
                         <p>{skinName}</p>
